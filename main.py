@@ -8,6 +8,9 @@ print("Constants imported:", SCREEN_WIDTH, SCREEN_HEIGHT)
 def main():
 
 	pygame.init()
+	updatable = pygame.sprite.Group()
+	drawable = pygame.sprite.Group()
+	Player.containers = (updatable, drawable)
 	screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 	fps = pygame.time.Clock()
 	dt = 0
@@ -18,8 +21,16 @@ def main():
 			if event.type == pygame.QUIT:
 				return
 		screen.fill((0, 0, 0))
-		player.update(dt)
-		player.draw(screen)
+
+
+		updatable.update(dt)
+
+
+		for sprite in drawable:
+			sprite.draw(screen)
+   		
+		   
+
 		pygame.display.flip()
 		dt = fps.tick(60) / 1000
 
