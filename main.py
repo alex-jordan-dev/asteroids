@@ -24,6 +24,7 @@ def main():
 	fps = pygame.time.Clock()
 	dt = 0
 	player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+	player.set_shots_group(shots)
 	asteroid_field = AsteroidField()
 	
 	
@@ -36,10 +37,19 @@ def main():
 
 		updatable.update(dt)
 
+
+
 		for sprite in asteroids:
 			if sprite.collisions(player):
 				print ("Game over!")
 				sys.exit()
+
+		for asteroid in asteroids:
+			for shot in shots:
+				if shot.collisions(asteroid):
+					print ("hit!")
+					asteroid.kill()
+					shot.kill()
 
 
 

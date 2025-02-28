@@ -11,6 +11,10 @@ class Player(CircleShape):
         self.x = x
         self.y = y
         self.timer = 0
+        self.shots_group = None
+
+    def set_shots_group(self, shots):
+        self.shots_group = shots
 
         
         
@@ -55,14 +59,17 @@ class Player(CircleShape):
         self.position += forward * PLAYER_SPEED * dt
 
     def shoot(self):
-        if self.timer <= 0:
+        if self.timer <= 0 and self.shots_group is not None:
         
             new_shot = Shot(self.position.x, self.position.y)
 
             direction = pygame.Vector2(0, 1)
             direction = direction.rotate(self.rotation)
             new_shot.velocity = direction * PLAYER_SHOOT_SPEED
+
+            self.shots_group.add (new_shot)
             self.timer = PLAYER_SHOOT_COOLDOWN
+
 
 
 
